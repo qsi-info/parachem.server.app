@@ -1,0 +1,11 @@
+
+
+<form action="/auth/process" method="post">
+	<% var flash = req.flash('message'); %>
+	<% if (flash.length > 0) { %>
+	  <p style="color: red"><%= flash[0].message %></p>
+	<% } %>
+	<input type="text" name="username" placeholder="account"/>
+	<input type="password" name="password" placeholder="password"/>
+	<input type="submit" value="Login" />
+</form>
