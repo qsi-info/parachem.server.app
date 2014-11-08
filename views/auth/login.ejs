@@ -5,6 +5,13 @@
 	<% if (flash.length > 0) { %>
 	  <p style="color: red"><%= flash[0].message %></p>
 	<% } %>
+
+	<!-- Add clientId redirectURI -->
+	<input type="hidden" name="client_id" value="<%= req.query.client_id || '' %>"/>
+	<input type="hidden" name="response_type" value="<%= req.query.response_type || '' %>"/>
+	<input type="hidden" name="redirect_uri" value="<%= req.query.redirect_uri || '' %>"/>
+
+
 	<input type="text" name="username" placeholder="account"/>
 	<input type="password" name="password" placeholder="password"/>
 	<input type="submit" value="Login" />

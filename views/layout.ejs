@@ -28,12 +28,16 @@
     -->
 
     <!--STYLES-->
-    
+    <link rel="stylesheet" href="/linker/styles/google.css">
+    <link rel="stylesheet" href="/linker/styles/main.css">
     <!--STYLES END-->
   </head>
 
   <body>
-    <%- body %>
+    <%- partial('./partials/header.ejs') %>
+    <div class="container">
+      <%- body %>
+    </div>
 
 
 
@@ -86,9 +90,8 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/linker/js/socket.io.js"></script>
-    <script src="/linker/js/sails.io.js"></script>
-    <script src="/linker/js/app.js"></script>
+    <script src="/linker/js/jquery.min.js"></script>
+    <script src="/linker/js/bootstrap.min.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>

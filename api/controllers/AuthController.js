@@ -23,7 +23,10 @@ module.exports = {
     
   
 	login: function (req, res) {
-		return res.view();
+		console.log(req.protocol);
+		console.log(req.host);
+		console.log(req.port);
+		return res.view({ layout: 'auth.layout.ejs' });
 	},
 
 	process: function (req, res) {
@@ -31,10 +34,17 @@ module.exports = {
 			if (err) return console.log(err);
 			if (info && !user) {
 				req.flash('message', info);
-				return res.redirect('/login');
+      	if (req.body.client_id != '' && req.body.response_type != '' && req.body.redirect_uri != '') {
+					return res.redirect('/login?client_id=' + req.body.client_id + '&response_type=' + req.body.response_type+ '&redirect_uri=' + req.body.redirect_uri);
+				} else {
+					return res.redirect('/login');
+				}
 			}
       req.logIn(user, function(err) {
       	if (err) return res.redirect('/login');
+      	if (req.body.client_id != '' && req.body.response_type != '' && req.body.redirect_uri != '') {
+      		return res.redirect('/oauth/authorization?client_id=' + req.body.client_id + '&response_type=' + req.body.response_type+ '&redirect_uri=' + req.body.redirect_uri);
+      	}
       	if (user.permission == 'admin') return res.redirect('/admin');
       	return res.redirect('/');
       })

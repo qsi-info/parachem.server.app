@@ -29,7 +29,12 @@ module.exports = function (grunt) {
    */
 
   var cssFilesToInject = [
-    'linker/**/*.css'
+
+    'linker/styles/bootstrap.min.css',
+    'linker/styles/bootstrap.*.css',
+
+    'linker/**/*.css',
+
   ];
 
 
@@ -57,6 +62,17 @@ module.exports = function (grunt) {
     'linker/js/app.js',
 
     // *->    put other dependencies here   <-*
+
+    // 'linker/js/angular.min.js',
+    'linker/js/angular-*.js',
+
+
+
+    'linker/js/jquery.min.js',
+    'linker/js/jquery*.js',
+
+    'linker/js/bootstrap.min.js',
+    'linker/js/bootstrap.*.js',
 
     // All of the rest of your app scripts imported here
     'linker/**/*.js'
@@ -146,7 +162,14 @@ module.exports = function (grunt) {
           cwd: './assets',
           src: ['**/*.!(coffee)'],
           dest: '.tmp/public'
-        }
+          },
+        // Fix for the fonts loading.
+        {
+          expand: true,
+          cwd: './assets/linker/fonts',
+          src: ['**/*'],
+          dest: '.tmp/public/fonts'
+          }          
         ]
       },
       build: {

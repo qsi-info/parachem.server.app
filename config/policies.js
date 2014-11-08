@@ -15,6 +15,7 @@
 module.exports.policies = {
 
   '*': 'isAuthenticated',
+  // '*': true,
 
   AuthController: {
   	'*': true,
@@ -23,6 +24,9 @@ module.exports.policies = {
   AdminController: {
   	'*': 'isAdmin',
   },
+
+
+  'client' : 'oauthBearer',
 
 
 
