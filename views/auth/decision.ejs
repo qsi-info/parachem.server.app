@@ -1,8 +1,20 @@
-<form action="/oauth/decision" method="post" id="decision">
-	<input type="hidden" name="transaction_id" value="<%= transactionID %>"/>
-	<!-- <input type="submit" value="Allow"/> -->
-	<!-- <input type="submit" name="cancel" value="Deny"/> -->
-</form>
-<script type="text/javascript">
-document.getElementById('decision').submit();
-</script>
+<html>
+	<head>
+		<title>Decision OAuth2</title>
+	</head>
+	<body>
+
+		<form action="/oauth/decision" method="post" id="decision">
+			<input type="hidden" name="transaction_id" value="<%= transactionID %>"/>
+
+			<!-- Add these to have decision button -->
+			<!-- <input type="submit" value="Allow"/> -->
+			<!-- <input type="submit" name="cancel" value="Deny"/> -->
+		</form>
+
+
+		<!-- This script is an implicit allow by the user -->
+		<script type="text/javascript">document.getElementById('decision').submit();</script>
+
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<form data-parsley-validate="" action="/admin/client/update" method="post">
+
+
+	<div class="col-md-6">
+
+		<fieldset>
+			<legend><%= __('Settings') %></legend>
+
+			<input type="hidden" name="id" value="<%= client.id %>"/>
+
+			<div class="form-group">
+				<label><%= __('Name') %></label>
+				<input type="text" 
+							 name="name" 
+							 required="true"
+							 value="<%= client.name %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Redirect URI') %></label>
+				<input type="text"
+							 required="true"
+							 name="redirectURI" 
+							 value="<%= client.redirectURI %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label>Icon</label>
+				<select class="form-control" name="icon">
+				<% sails.config.icons.forEach(function (icon) { %>
+					<% if (client.icon == icon) { %>
+					<option value="<%= icon %>" selected="selected"><%= icon %></option>
+					<% } else { %>
+					<option value="<%= icon %>"><%= icon %></option>
+					<% } %>
+				<% }) %>
+				</select>
+			</div>
+
+		</fieldset>
+
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="/admin/client/dashboard/<%= client.id %>" class="btn btn-default">Cancel</a>
+		</div>
+
+
+
+	</div>
+
+
+
+</form>
+
+
+
+
+
+	
+
+

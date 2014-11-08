@@ -28,6 +28,9 @@
     -->
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/metro.plugin.css">
+    <link rel="stylesheet" href="/linker/styles/parsley.plugin.css">
+    <link rel="stylesheet" href="/linker/styles/font-awesome.min.css">
     <link rel="stylesheet" href="/linker/styles/google.css">
     <link rel="stylesheet" href="/linker/styles/main.css">
     <!--STYLES END-->
@@ -92,6 +95,12 @@
     <!--SCRIPTS-->
     <script src="/linker/js/jquery.min.js"></script>
     <script src="/linker/js/bootstrap.min.js"></script>
+    <script src="/linker/js/parsley.min.js"></script>
     <!--SCRIPTS END-->
+
+
+    <script type="text/javascript" src="/js/parsley/i18n/<%= req.cookies[sails.config.i18n.cookie] || sails.config.i18n.defaultLocale %>.js"></script>
+
+
   </body>
 </html>

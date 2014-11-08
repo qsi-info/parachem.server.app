@@ -1,0 +1,60 @@
+
+
+<h1><%= client.name %></h1>
+
+<div class="row">
+	<div class="col-md-6">
+
+
+		<table class="table app-info-table">
+			<tbody>
+				<tr>
+					<td>Client ID</td>
+					<td><%= client.clientId %></td>
+				</tr>
+				<tr>
+					<td>Client Secret</td>
+					<td><%= client.clientSecret %></td>
+				</tr>
+				<tr>
+					<td>Redirect URI</td>
+					<td><%= client.redirectURI %></td>
+				</tr>
+				<tr>
+					<td>Login procedure</td>
+					<td><%= client.login %></td>
+				</tr>
+				<tr>
+					<td>Authentification strategy</td>
+					<td><%= client.strategy %></td>
+				</tr>
+				<tr>
+					<td>IE integration</td>
+					<td><%= client.ie %></td>
+				</tr>
+				<tr>
+					<td>LDAP Everyone permission</td>
+					<td><%= client.everyone %></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+
+
+	<div class="col-md-6">
+		<%- partial('./partials/client.sidebar.ejs') %>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

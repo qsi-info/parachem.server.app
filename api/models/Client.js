@@ -20,6 +20,11 @@ module.exports = {
   		required: true,
   	},
 
+    icon: {
+      type: 'string',
+      required: true,
+    },
+
   	login: {
   		type: 'string',
   		enum: ['http', 'signin'],
@@ -32,6 +37,18 @@ module.exports = {
   		defaultsTo: 'local',
   	},
 
+
+    ie: {
+      type: 'boolean',
+      defaultsTo: false,
+    },
+
+    everyone: {
+      type: 'string',
+      enum: ['none', 'view', 'contribute', 'edit'],
+      defaultsTo: 'none',
+    },
+
   	clientId: {
   		type: 'string',
   	},
@@ -42,9 +59,10 @@ module.exports = {
 
   	trusted: {
   		type: 'boolean',
-  		defaultsTo: false,
+  		defaultsTo: true,
   	},
-    
+
+
   },
 
 
@@ -52,6 +70,12 @@ module.exports = {
   	attrs.clientId = Utils.clientId();
   	attrs.clientSecret = Utils.clientSecret();
   	cb();
+  },
+
+
+  beforeDestroy: function (criteria, cb) {
+    // Implement the destroy access token when client is destroy.
+    cb()
   }
 
 

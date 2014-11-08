@@ -1,0 +1,122 @@
+<form data-parsley-validate="" action="/admin/client/update" method="post">
+
+	<div class="col-md-6">
+
+
+		<fieldset>
+		  <legend>Authentification</legend>
+
+
+		  <input type="hidden" name="id" value="<%= client.id %>"/>
+
+		  <div class="form-group">
+		    <label>Strategy</label>
+		    <div class="radio">
+		      <label>
+		      	<% if (client.strategy == 'full') { %> 
+		        <input type="radio" name="strategy" value="full" checked="">
+		      	<% } else { %>
+		        <input type="radio" name="strategy" value="full">
+	      		<% } %>
+		        Full Integrated (Only IE and LDAP Configuration)
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		      	<% if (client.strategy == 'mix') { %> 
+		        <input type="radio" name="strategy" value="mix" checked="">
+		      	<% } else { %>
+		        <input type="radio" name="strategy" value="mix">
+	      		<% } %>
+		        Mix (LDAP and local database)
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		      	<% if (client.strategy == 'local') { %> 
+		        <input type="radio" name="strategy" value="local" checked="">
+		      	<% } else { %>
+		        <input type="radio" name="strategy" value="local">
+	      		<% } %>
+		        Local database only
+		      </label>
+		    </div>
+		  </div>
+
+		  <br/>
+		  
+		  <div class="form-group">
+		    <label>Login procedure</label>
+		    <div class="radio">
+		      <label>
+		      	<% if (client.login == 'http') { %> 
+		        <input type="radio" name="login" id="basic" value="http" checked="">
+		      	<% } else { %>
+		        <input type="radio" name="login" id="basic" value="http">
+	      		<% } %>
+		        Basic HTTP authentification
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		      	<% if (client.login == 'signin') { %> 
+		        <input type="radio" name="login" id="basic" value="signin" checked="">
+		      	<% } else { %>
+		        <input type="radio" name="login" id="basic" value="signin">
+	      		<% } %>
+		        Sign in page
+		      </label>
+		    </div>
+		  </div>
+
+		  <br/>
+		  
+		  <div class="form-group">
+		    <label>Everyone permission level (LDAP user only)</label>
+		    <select name="everyone" class="form-control">
+		      <option value="none" <%= client.everyone == 'none' ? 'selected' : ''%>>None</option>
+		      <option value="view" <%= client.everyone == 'view' ? 'selected' : ''%>>View</option>
+		      <option value="contribute" <%= client.everyone == 'contribute' ? 'selected' : ''%>>Contribute</option>
+		      <option value="edit" <%= client.everyone == 'edit' ? 'selected' : ''%>>Edit</option>
+		    </select>
+		  </div>
+
+		  <br/>
+
+		  <div class="form-group">
+		    <label>Options</label>
+		    <div class="checkbox">
+		      <label>
+		      	<% if (client.ie == true) { %>
+		        	<input type="checkbox" name="ie" value="1" checked="">
+		      	<% } else { %>
+			        <input type="checkbox" name="ie" value="1">
+		      	<% } %>
+		        IE Integration				    	
+		      </label>
+		    </div>		
+		  </div>
+
+		</fieldset>
+
+
+
+
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="/admin/client" class="btn btn-default">Cancel</a>
+		</div>
+
+	</div>
+
+
+
+</form>
+
+
+
+
+
+	
+
+

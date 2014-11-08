@@ -10,7 +10,6 @@ module.exports = {
 
   attributes: {
   	
-
   	permission: {
   		type: 'string',
   		enum: ['view', 'contribute', 'edit', 'admin'],

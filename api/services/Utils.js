@@ -6,10 +6,10 @@ module.exports.accessToken = function () {
 
 
 module.exports.clientId = function () {
-	return uid(10);
+	return uid(32);
 }
 
 module.exports.clientSecret = function () {
-	return uid(30);
+	return uid(32);
 }
 

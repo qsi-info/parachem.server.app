@@ -1,0 +1,132 @@
+<form data-parsley-validate="" action="/admin/client/create" method="post">
+
+
+	<div class="col-md-6">
+
+
+
+		<fieldset>
+			<legend><%= __('Informations') %></legend>
+
+			<div class="form-group">
+				<label><%= __('Name') %></label>
+				<input type="text" 
+							 name="name" 
+							 required="true"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Redirect URI') %></label>
+				<input type="text"
+							 required="true"
+							 name="redirectURI" 
+							 class="form-control"/>
+			</div>
+
+
+
+			<div class="form-group">
+				<label>Icon</label>
+				<select class="form-control" name="icon">
+				<% sails.config.icons.forEach(function (icon) { %>
+					<option value="<%= icon %>"><%= icon %></option>
+				<% }) %>
+				</select>
+			</div>
+
+		</fieldset>
+
+	</div>
+	<div class="col-md-6">
+
+
+		<fieldset>
+		  <legend>Authentification</legend>
+		  <div class="form-group">
+		    <label>Strategy</label>
+		    <div class="radio">
+		      <label>
+		        <input type="radio" name="strategy" id="full" value="full">
+		        Full Integrated (Only IE and LDAP Configuration)
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		        <input type="radio" name="strategy" id="mix" value="mix">
+		        Mix (LDAP and local database)
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		        <input type="radio" name="strategy" id="local" value="local" checked="">
+		        Local database only
+		      </label>
+		    </div>
+		  </div>
+
+		  <br/>
+		  
+		  <div class="form-group">
+		    <label>Login procedure</label>
+		    <div class="radio">
+		      <label>
+		        <input type="radio" name="login" id="basic" value="http" checked="">
+		        Basic HTTP authentification
+		      </label>
+		    </div>
+		    <div class="radio">
+		      <label>
+		        <input type="radio" name="login" id="signin" value="signin">
+		        Sign in page
+		      </label>
+		    </div>
+		  </div>
+
+		  <br/>
+		  
+		  <div class="form-group">
+		    <label>Everyone permission level (LDAP user only)</label>
+		    <select name="everyone" class="form-control">
+		      <option value="none" selected="">None</option>
+		      <option value="view">View</option>
+		      <option value="contribute">Contribute</option>
+		      <option value="edit">Edit</option>
+		    </select>
+		  </div>
+
+		  <br/>
+
+		  <div class="form-group">
+		    <label>Options</label>
+		    <div class="checkbox">
+		      <label>
+		        <input type="checkbox" name="ie" value="1">
+		        IE Integration				    	
+		      </label>
+		    </div>		
+		  </div>
+
+		</fieldset>
+
+
+
+
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">Create</button>
+			<a href="/admin/client" class="btn btn-default">Cancel</a>
+		</div>
+
+	</div>
+
+
+
+</form>
+
+
+
+
+
+	
+
+

@@ -58,11 +58,12 @@ passport.use(new LocalStrategy(function (username, password, done) {
  * the specification, in practice it is quite common.
  */
 passport.use(new BasicStrategy(function (username, password, done) {
+	console.log('basic auth');
   User.findOne({ account: username }, function (err, user) {
   	if (err) return done(err, false);
     if (!user) return done(null, false);
     bcrypt.compare(password, user.password, function(err, isIdentical) {
-      if(err) return done(err, null);
+      if(err) return done(err, false);
       if (!isIdentical) return done(null, false, { message: 'Invalid password' });
       return done(null, user);
     });

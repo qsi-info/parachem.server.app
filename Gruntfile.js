@@ -33,6 +33,8 @@ module.exports = function (grunt) {
     'linker/styles/bootstrap.min.css',
     'linker/styles/bootstrap.*.css',
 
+    'linker/styles/*.plugin.css',
+
     'linker/**/*.css',
 
   ];

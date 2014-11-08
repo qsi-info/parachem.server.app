@@ -21,13 +21,42 @@ var passport = require('passport');
 
 module.exports = {
     
-  
 	login: function (req, res) {
-		console.log(req.protocol);
-		console.log(req.host);
-		console.log(req.port);
-		return res.view({ layout: 'auth.layout.ejs' });
+		if (req.query.client_id) {
+			Client.findOne({ clientId: req.query.client_id})
+			.then(function (client) {
+				if (!client || client.login == 'signin') return res.view({ layout: 'auth.layout.ejs' });
+				return res.redirect('/auth/http?client_id=' + req.query.client_id + '&response_type=' + req.query.response_type+ '&redirect_uri=' + req.query.redirect_uri);
+			})
+		} else {
+			return res.view({ layout: 'auth.layout.ejs' });
+		}
 	},
+
+	http: function (req, res) {
+    var connect = require('../../node_modules/sails/node_modules/express/node_modules/connect');
+    var auth = connect.middleware.basicAuth(function (username, password, handleCallback) {
+
+    	// Fake the request by adding username and password to it.
+      req.body.username = username;
+      req.body.password = password;
+
+      passport.authenticate('local', function (err, user, info) {
+      	if (err || !user) handleCallback(err, false);
+      	else req.logIn(user, function (err) {
+      		handleCallback(err, user);
+      	})
+      })(req, res);
+
+    });
+
+    // Calling the HTTP authentification 
+    auth(req, res, function () {
+  		return res.redirect('/oauth/authorize?client_id=' + req.query.client_id + '&response_type=' + req.query.response_type+ '&redirect_uri=' + req.query.redirect_uri);
+    });
+
+	},
+
 
 	process: function (req, res) {
 		passport.authenticate('local', function(err, user, info) {
@@ -43,7 +72,7 @@ module.exports = {
       req.logIn(user, function(err) {
       	if (err) return res.redirect('/login');
       	if (req.body.client_id != '' && req.body.response_type != '' && req.body.redirect_uri != '') {
-      		return res.redirect('/oauth/authorization?client_id=' + req.body.client_id + '&response_type=' + req.body.response_type+ '&redirect_uri=' + req.body.redirect_uri);
+      		return res.redirect('/oauth/authorize?client_id=' + req.body.client_id + '&response_type=' + req.body.response_type+ '&redirect_uri=' + req.body.redirect_uri);
       	}
       	if (user.permission == 'admin') return res.redirect('/admin');
       	return res.redirect('/');

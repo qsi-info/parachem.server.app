@@ -50,7 +50,7 @@ module.exports = {
   	  app.use(passport.initialize());
 	    app.use(passport.session());
 
-			app.get('/oauth/authorization', [
+			app.get('/oauth/authorize', [
 				function (req, res, next) {
 					if (req.user) return next();
 					return res.redirect('/login?client_id=' + req.param('client_id') + '&response_type=' + req.param('response_type') + '&redirect_uri=' + req.param('redirect_uri'));
