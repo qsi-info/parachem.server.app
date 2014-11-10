@@ -7,13 +7,20 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+	// LDAP User
+	if (user.sAMAccountName) {
+		done(null, user.sAMAccountName);
+	} else {
+	  done(null, user.id);
+	}
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findOne(id, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(function(idORSAMAccount, done) {
+  User.findOne(idORSAMAccount, function (err, user) {
+  	if (err) return console.log(err);
+  	if (!user) return LDAP.findUser(idORSAMAccount, done);
+  	return done(err, user);
+  })
 });
 
 
@@ -28,17 +35,31 @@ passport.deserializeUser(function(id, done) {
  */
 passport.use(new LocalStrategy(function (username, password, done) {
 
-	User.findOne()
-	.where({ account: username })
-	.then(function (user) {
-		if (!user) return done(null, user, { message: 'Invalid account'});
-		bcrypt.compare(password, user.password, function (err, isIdentical) {
-			if (err) return done(err, false);
-			if (!isIdentical) return done(err, false, { message: 'Wrong password'});
-			if (isIdentical) return done(null, user);
+
+	if (username == 'admin' || username.split('@')[1] == sails.settings.LOCAL_DOMAIN) {
+		username = username.split('@')[0];
+		User.findOne()
+		.where({ account: username })
+		.then(function (user) {
+			if (!user) return done(null, user, { message: 'Invalid account'});
+			bcrypt.compare(password, user.password, function (err, isIdentical) {
+				if (err) return done(err, false);
+				if (!isIdentical) return done(err, false, { message: 'Wrong password'});
+				if (isIdentical) return done(null, user);
+			});
+		})
+		.fail(function (err) { return done(err, false); })		
+	} else {
+		// LDAP Search
+		console.log('ldap auth');
+		LDAP.authenticate(sails.settings.LDAP_DOMAIN, username, password, function (err, user) {
+			if (err || !user) return done(null, false, { message: 'ldap error' });
+			done(null, user);
 		});
-	})
-	.fail(function (err) { return done(err, false); })
+
+	}
+
+
 
 }));
 
@@ -86,12 +107,15 @@ passport.use(new BearerStrategy (function (accessToken, done) {
 	.then(function (token) {
 		if (!token) return done(null, false, { message: 'invalid_token' });
 		// Implement expiration verification if needed
-		User.findOne(token.user)
-		.then(function (user) {
-			if (!user) return done(null, false, { message: 'user_not_found' });
-			return done(null, user);
-		})
-		.fail(done);
+
+		done(null, token);
+
+		// User.findOne(token.user)
+		// .then(function (user) {
+		// 	if (!user) return done(null, false, { message: 'user_not_found' });
+		// 	return done(null, user);
+		// })
+		// .fail(done);
 	})
 	.fail(done);
 }));

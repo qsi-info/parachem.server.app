@@ -8,6 +8,8 @@
 
 module.exports = {
 
+  usage: 'admin',
+
   attributes: {
   	
   	name: {
@@ -49,6 +51,26 @@ module.exports = {
       defaultsTo: 'none',
     },
 
+    viewLDAPGroup: {
+      type: 'string',
+      defaultsTo: 'NONE',
+    },
+
+    contributeLDAPGroup: {
+      type: 'string',
+      defaultsTo: 'NONE',
+    },
+
+    editLDAPGroup: {
+      type: 'string',
+      defaultsTo: 'NONE',
+    },
+
+    endpoints: {
+      type: 'string',
+      defaultsTo: '',
+    },
+
   	clientId: {
   		type: 'string',
   	},
@@ -74,8 +96,11 @@ module.exports = {
 
 
   beforeDestroy: function (criteria, cb) {
-    // Implement the destroy access token when client is destroy.
-    cb()
+    Client.findOne(criteria.where.id)
+    .then(function (client) {
+      AccessToken.destroy({ client: client.clientId }).exec(cb);
+    })
+    .fail(cb)
   }
 
 

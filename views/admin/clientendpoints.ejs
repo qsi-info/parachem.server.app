@@ -1,0 +1,47 @@
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="/admin/client/dashboard/<%= client.id %>"><%= client.name %></a> > 
+      <a href="javascript:;">API Endpoints</a>
+    </h2>
+  </div>
+</div>
+
+
+<div class="col-md-6">
+
+	<form action="/admin/client/endpoints/update" method="post">
+		<fieldset>
+			<legend>API models endpoints</legend>
+
+			<input type="hidden" name="id" value="<%= client.id %>"/>
+
+			<% _.each(sails.models, function (model) { %>
+			<% if (model.usage != 'admin') { %>
+				<div class="form-group">
+			    <div class="checkbox">
+			      <label>
+			      	<% if (client.endpoints.split(',').indexOf(model.identity) != -1) { %>
+				        <input type="checkbox" name="endpoints[<%= model.identity %>]" value="1" checked="">
+			      	<% } else { %> 
+				        <input type="checkbox" name="endpoints[<%= model.identity %>]" value="1">
+			      	<% } %>
+			        <%= model.identity %>				    	
+			      </label>
+			    </div>		
+			  </div>
+			  <% } %>
+			<% }) %>
+		</fieldset>
+
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="/admin/client/dashboard/<%= client.id %>" class="btn btn-default">Cancel</a>
+		</div>
+
+
+	</form>
+
+</div>
+

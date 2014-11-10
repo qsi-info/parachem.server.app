@@ -16,20 +16,51 @@ module.exports.bootstrap = function (cb) {
 
 	User.findOneByAccount('admin', function (err, admin) {
 		if (err) return console.log(err);
-		if (admin) return cb();
-		User.create({
-			account: 'admin',
-			password: 'admin',
-			displayName: 'Administrator',
-			permission: 'admin',
-		})
-		.then(function (admin) {
-			cb();
-		})
-		.fail(function (err) {
-			return console.log(err);
-		})
-	})
+		if (admin) {
+			console.log('admin');			
+			Setting.find()
+			.then(function (settings) {
+				sails.settings = settings[0];
+				LDAP.configure(sails.settings);				
+				cb();
+			})
+		} else {
+			console.log('else');			
+			User.create({
+				account: 'admin',
+				password: 'admin',
+				displayName: 'Administrator',
+				type: 'admin',
+			})
+			.then(function (admin) {
+				console.log('create admin');			
+				Setting.find()
+				.then(function (settings) {
+					console.log('findsettings');			
+					if (settings.length < 1) {
+					console.log('create settings');			
 
+						Setting.create({})
+						.then(function (setting) {
+							sails.settings = setting;
+							LDAP.configure(sails.settings);
+							cb();
+						})
+					} else {
+						console.log('use');			
+						sails.settings = settings[0];
+						LDAP.configure(sails.settings);
+						cb();
+					}
+				})
+				.fail(function (err) {
+					return console.log(err);
+				})			
+			})
+			.fail(function (err) {
+				return console.log(err);
+			})			
+		}
+	})
 
 };

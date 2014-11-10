@@ -74,7 +74,7 @@ module.exports = {
       	if (req.body.client_id != '' && req.body.response_type != '' && req.body.redirect_uri != '') {
       		return res.redirect('/oauth/authorize?client_id=' + req.body.client_id + '&response_type=' + req.body.response_type+ '&redirect_uri=' + req.body.redirect_uri);
       	}
-      	if (user.permission == 'admin') return res.redirect('/admin');
+      	if (user.type == 'admin') return res.redirect('/admin');
       	return res.redirect('/');
       })
     })(req, res);		

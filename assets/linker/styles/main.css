@@ -5,7 +5,7 @@ body {
 
 .add-link {
 	font-size: 20px;
-	margin-left: 50px;
+	margin-left: 100px;
 }
 
 
@@ -20,4 +20,14 @@ body {
 	font-weight: bold;
 	/*color: green;*/
 	/*font-style: italic;*/
+}
+
+
+.metro .listview-outlook label {
+	font-style: inherit;
+}
+
+.breadcrumbs {
+	font-weight: bold !important;
+
 }

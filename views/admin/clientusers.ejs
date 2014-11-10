@@ -1,0 +1,136 @@
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="/admin/client/dashboard/<%= client.id %>"><%= client.name %></a> > 
+      <a href="javascript:;">Users and Permissions</a>
+    </h2>
+  </div>
+</div>
+
+<div class="col-md-6">
+
+  <fieldset>
+  	<legend>
+  		Application Local Users
+  	</legend>
+  </fieldset>	  
+  <div class="metro">
+    <div data-role="listview" class="listview-outlook">
+
+    <% users.forEach(function (user) { %>
+    <form class="form-inline" action="/admin/client/user/update" method="post">
+      <input type="hidden" name="client" value="<%= client.id %>"/>
+      <input type="hidden" name="user" value="<%= user.id %>"/>
+      <div href="javascript:;" class="list">
+        <div class="list-content">
+          <span class="list-title"><%= user.displayName %></span>
+          <span class="list-subtitle">account: <%= user.account %></span>
+          <label class="radio-inline">
+            <% if (user.permission == 'view') { %> 
+              <input type="radio" name="permission" value="view" checked="checked">
+            <% } else { %>
+              <input type="radio" name="permission" value="view">
+            <% } %>
+            view
+          </label>
+          <label class="radio-inline">
+            <% if (user.permission == 'contribute') { %> 
+              <input type="radio" name="permission" value="contribute" checked="checked">
+            <% } else { %>
+              <input type="radio" name="permission" value="contribute">
+            <% } %>
+            contribute
+          </label>
+          <label class="radio-inline">
+            <% if (user.permission == 'edit') { %> 
+              <input type="radio" name="permission" value="edit" checked="checked">
+            <% } else { %>
+              <input type="radio" name="permission" value="edit">
+            <% } %>
+            edit
+          </label>
+          &nbsp;
+          <button type="submit" class="btn btn-sm btn-primary">Change</button>
+          <a href="javascript:;" type="btn" class="btn btn-sm btn-danger delete-user" data-client="<%= client.id %>" data-user="<%= user.id %>">Delete</a>
+        </div>
+
+      </div>
+  
+
+    </form>
+    <% }) %>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="col-md-6">
+  <form action="/admin/client/permissions/update" method="post">
+    <fieldset>
+      <legend>LDAP Permission Groups</legend>
+
+      <div class="form-group">
+        <label>View</label>
+        <input type="text" 
+               class="form-control" 
+               required="true" 
+               name="viewLDAPGroup" 
+               value="<%= client.viewLDAPGroup %>"/>
+      </div>
+
+      <div class="form-group">
+        <label>Contribute</label>
+        <input type="text" 
+               class="form-control" 
+               required="true" 
+               name="contributeLDAPGroup" 
+               value="<%= client.contributeLDAPGroup %>"/>
+      </div>
+
+      <div class="form-group">
+        <label>Edit</label>
+        <input type="text" 
+               class="form-control" 
+               required="true" 
+               name="editLDAPGroup" 
+               value="<%= client.editLDAPGroup %>"/>
+      </div>
+
+
+    </fieldset>
+
+    <div class="pull-right">
+      <button type="submit" class="btn btn-primary">Update</button>
+      <a href="/admin/client/dashboard/<%= client.id %>" class="btn btn-default">Cancel</a>
+    </div>
+
+
+  </form>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+  window.addEventListener('load', function () {
+    $('.delete-user').on('click', function (e) {
+      e.preventDefault();
+      var userId = $(this).attr('data-user');
+      var clientId = $(this).attr('data-client');
+      $.post('/admin/delete-user-permission', { user: userId, client: clientId }, function (response) {
+        if (response.status == 'ok') {
+          window.location.reload();
+        }
+      })
+    })
+  })
+</script>
+
+
+
+

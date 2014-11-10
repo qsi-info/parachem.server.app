@@ -1,0 +1,86 @@
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="javascript:;">LDAP</a>
+    </h2>
+  </div>
+</div>
+
+
+
+<form data-parsley-validate="" action="/admin/settings/update" method="post">
+
+
+	<div class="col-md-6">
+
+
+
+		<fieldset>
+			<legend><%= __('LDAP Configuration') %></legend>
+
+			<input type="hidden" name="id" value="<%= sails.settings.id %>"/>
+
+			<div class="form-group">
+				<label><%= __('Url') %></label>
+				<input type="text" 
+							 name="LDAP_URL" 
+							 value="<%= sails.settings.LDAP_URL %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Domain') %></label>
+				<input type="text" 
+							 name="LDAP_DOMAIN" 
+							 value="<%= sails.settings.LDAP_DOMAIN %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Base DN') %></label>
+				<input type="text" 
+							 name="LDAP_BASEDN" 
+							 value="<%= sails.settings.LDAP_BASEDN %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Username') %></label>
+				<input type="text" 
+							 name="LDAP_USERNAME" 
+							 value="<%= sails.settings.LDAP_USERNAME %>"
+							 class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label><%= __('Password') %></label>
+				<input type="password" 
+							 name="LDAP_PASSWORD" 
+							 value="<%= sails.settings.LDAP_PASSWORD %>"
+							 class="form-control"/>
+			</div>
+
+		</fieldset>
+
+
+
+
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="/admin/client" class="btn btn-default">Cancel</a>
+		</div>
+
+	</div>
+
+
+
+</form>
+
+
+
+
+
+	
+
+

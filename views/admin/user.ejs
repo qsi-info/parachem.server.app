@@ -1,0 +1,37 @@
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="javascript:;">Users</a>
+    </h2>
+  </div>
+</div>
+
+<div class="col-md-6">
+
+
+  <fieldset>
+  	<legend>
+  		Local Users&nbsp;<a href="/admin/user/new" id="addUserLink" class="pull-right">new user&nbsp;<i class="fa fa-plus-circle"></i></a>
+  	</legend>
+  </fieldset>	  
+  <div class="metro">
+    <div data-role="listview" class="listview-outlook">
+
+    <% users.forEach(function (user) { %>
+    	<% if (user.provider == 'local') { %>
+      <a href="/admin/user/edit/<%= user.id %>" class="list local-user-link" data-user="<%= user.id %>">
+        <div class="list-content">
+          <span class="list-title"><%= user.displayName %></span>
+          <span class="list-subtitle">account: <%= user.account %></span>
+          <!-- <span class="list-remark">permission level: <%= user.permission %></span> -->
+          <span class="list-remark">provider: <%= user.provider %></span>
+        </div>
+      </a>
+      <% } %>
+    <% }) %>
+
+    </div>
+  </div>
+
+</div>

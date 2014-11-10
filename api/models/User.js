@@ -8,13 +8,21 @@
 
 module.exports = {
 
+	usage: 'admin',
+
   attributes: {
-  	
-  	permission: {
+
+  	type: {
   		type: 'string',
-  		enum: ['view', 'contribute', 'edit', 'admin'],
-  		defaultsTo: 'view',
+  		enum: ['admin', 'user'],
+  		defaultsTo: 'user',
   	},
+  	
+  	// permission: {
+  	// 	type: 'string',
+  	// 	enum: ['view', 'contribute', 'edit', 'admin'],
+  	// 	defaultsTo: 'view',
+  	// },
 
 	  account: {
 	  	type: 'string',

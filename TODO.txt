@@ -1,0 +1,1 @@
+- window integration with the gateway page.

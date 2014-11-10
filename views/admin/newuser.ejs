@@ -1,0 +1,57 @@
+  <div class="col-md-6">
+
+    <form action="/admin/user/create" method="post" data-parsley-validate="">
+      <fieldset>
+        <legend>Create a new local user</legend>
+
+
+          <div class="form-group">
+            <label for="displayName"><%= __('User.DisplayName') %></label>
+            <input type="text" 
+                   class="form-control" 
+                   id="displayName" 
+                   required=""
+                   name="displayName"/>
+          </div>
+
+          <div class="form-group">
+            <label for="account"><%= __('User.Account') %></label>
+            <div class="input-group">
+              <input type="text" 
+                     class="form-control" 
+                     id="account" 
+                     required=""
+                     name="account"/>
+              <span class="input-group-addon">
+                @<%= sails.settings.LOCAL_DOMAIN %>
+              </span>
+           </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="password"><%= __('User.Password') %></label>
+            <input type="password" 
+                   class="form-control" 
+                   id="password" 
+                   required=""
+                   name="password"/>
+          </div>
+
+          <div class="form-group">
+            <label for="password"><%= __('User.PasswordConfirm') %></label>
+            <input type="password" 
+                   class="form-control" 
+                   data-parsley-equalto="#password"
+                   required=""/>
+          </div>
+
+      </fieldset>
+
+      <div class="pull-right">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="/admin/client" class="btn btn-default">Cancel</a>
+      </div>
+
+    </form>
+  </div>

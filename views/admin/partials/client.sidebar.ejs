@@ -1,8 +1,80 @@
-<ul class="" role="tablist">
+<!-- <ul class="nav" role="tablist">
+	<li><a href="/admin/client/endpoints/<%= client.id %>">API endpoints</a></li>
 	<li><a href="/admin/client/authentification/<%= client.id %>">Authentification</a></li>
-	<li><a href="">API endpoints</a></li>
-	<li><a href="">Permissions</a></li>
+	<li><a href="/admin/client/users/<%= client.id %>">Users and Permissions</a></li>
 	<li><a href="/admin/client/settings/<%= client.id %>">Settings</a></li>
-	<li><a href="/oauth/authorize?client_id=<%= client.clientId %>&response_type=token&redirect_uri=<%= client.redirectURI %>">Test OAuth2</a></li>
-	<!-- <li><a href="">Delete</a></li> -->
-</ul>
+	<li><a data-id="<%= client.id %>" id="deleteAppLink" href="">Delete this app</a></li>
+</ul> -->
+
+
+<div class="metro">
+	<a href="/admin/client/users/<%= client.id %>">
+		<div class="tile bg-cyan double">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-users"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Users and Permissions</span>
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/client/authentification/<%= client.id %>">
+		<div class="tile bg-green">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-sign-in"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Authentification</span>
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/client/endpoints/<%= client.id %>">
+		<div class="tile bg-orange">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-puzzle-piece"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">API Endpoints</span>
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/client/settings/<%= client.id %>">
+		<div class="tile bg-teal">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-cog"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Configuration</span>
+		  </div>
+		</div>
+	</a>
+	<a data-id="<%= client.id %>" id="deleteAppLink" href="javascript:;">
+		<div class="tile bg-red">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-unlink"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Uninstall</span>
+		  </div>
+		</div>
+	</a>
+</div>
+
+
+<script type="text/javascript">
+window.addEventListener('load', function () {
+	$('#deleteAppLink').on('click', function (e) {
+		e.preventDefault();
+		if (window.confirm('Are you sure you want to delete this app')) {
+			var id = $(this).attr('data-id');
+			$.ajax({
+				type: 'DELETE',
+				url: '/client/' + id,
+				success: function () {
+					window.location.href = '/admin/client';
+				}
+			})
+		}
+	})
+})
+</script>

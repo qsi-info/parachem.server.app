@@ -1,3 +1,11 @@
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="javascript:;"><%= client.name %></a>
+    </h2>
+  </div>
+</div>
 
 
 <h1><%= client.name %></h1>
@@ -6,7 +14,7 @@
 	<div class="col-md-6">
 
 
-		<table class="table app-info-table">
+		<table class="table table-hover app-info-table">
 			<tbody>
 				<tr>
 					<td>Client ID</td>
@@ -15,6 +23,10 @@
 				<tr>
 					<td>Client Secret</td>
 					<td><%= client.clientSecret %></td>
+				</tr>
+				<tr>
+					<td>Access Tokens</td>
+					<td><%= tokenCount %><a href="javascript:;" data-client="<%= client.id %>" class="revoke-token-link pull-right">revoke</a></td>
 				</tr>
 				<tr>
 					<td>Redirect URI</td>
@@ -39,7 +51,6 @@
 			</tbody>
 		</table>
 
-
 	</div>
 
 
@@ -48,6 +59,22 @@
 	</div>
 
 </div>
+
+
+<script type="text/javascript">
+	window.addEventListener('load', function () {
+		$('.revoke-token-link').on('click', function (e) {
+			e.preventDefault();
+			var client = $(this).attr('data-client');
+			$.post('/admin/revoke-token', { client: client }, function (response) {
+				if (response.status == 'ok') {
+					window.location.reload();
+				}
+			})
+		})
+	})
+</script>
+
 
 
 

@@ -1,3 +1,15 @@
+
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="/admin/client/dashboard/<%= client.id %>"><%= client.name %></a> > 
+      <a href="javascript:;">Authentification</a>
+    </h2>
+  </div>
+</div>
+
+
 <form data-parsley-validate="" action="/admin/client/update" method="post">
 
 	<div class="col-md-6">
@@ -104,7 +116,7 @@
 
 		<div class="pull-right">
 			<button type="submit" class="btn btn-primary">Update</button>
-			<a href="/admin/client" class="btn btn-default">Cancel</a>
+			<a href="/admin/client/dashboard/<%= client.id %>" class="btn btn-default">Cancel</a>
 		</div>
 
 	</div>

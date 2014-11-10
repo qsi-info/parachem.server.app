@@ -1,11 +1,30 @@
-<div class="col-md-6">
-	<h3>
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a> > 
+      <a href="javascript:;">Applications</a>
+    </h2>
+  </div>
+</div>
+
+
+<div class="col-md-12">
+
+  <fieldset>
+  	<legend>
+		Applications
+		<a href="/admin/client/new" class="pull-right">
+			<i class="fa fa-plus-circle"></i>&nbsp;new client application
+		</a>		
+  	</legend>
+  </fieldset>		
+<!-- 	<h3>
 		Applications
 		<a href="/admin/client/new" class="add-link">
 			<i class="fa fa-plus-circle"></i>&nbsp;new client application
 		</a>		
 	</h3>
-
+ -->
 	<div class="metro">
 	<% clients.forEach(function (client) { %>
 		<a href="/admin/client/dashboard/<%= client.id %>">

@@ -1,1 +1,61 @@
-<h1>Admin</h1>
+<div class="row metro breadcrumbs">
+  <div class="col-sm-12">
+    <h2>
+      <a href="/admin">Admin</a>
+    </h2>
+  </div>
+</div>
+
+<div class="metro">
+	<a href="/admin/client">
+		<div class="tile bg-cyan">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-cubes"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Applications</span>
+				<div id="clientCount" class="badge hidden bg-red"></div>		    
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/user">
+		<div class="tile bg-orange">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-users"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Local users</span>
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/ldap">
+		<div class="tile bg-green">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-bank"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">LDAP</span>
+		  </div>
+		</div>
+	</a>
+	<a href="/admin/settings">
+		<div class="tile bg-teal">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-cogs"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Settings</span>
+		  </div>
+		</div>
+	</a>
+
+
+	<script type="text/javascript">
+		// window.addEventListener('load', function () {
+		// 	$.get('/admin/client-count', function (response) {
+		// 		if (response.count > 0) {
+		// 			$('#clientCount').html(response.count).removeClass('hidden');
+		// 		}
+		// 	})
+		// })
+	</script>
