@@ -26,6 +26,15 @@
         <div class="list-content">
           <span class="list-title"><%= user.displayName %></span>
           <span class="list-subtitle">account: <%= user.account %></span>
+          <span class="list-remark">Permission level: <strong style="color: green;"><%= user.permission %></strong></span>
+          <label class="radio-inline">
+            <% if (user.permission == 'none') { %> 
+              <input type="radio" name="permission" value="none" checked="checked">
+            <% } else { %>
+              <input type="radio" name="permission" value="none">
+            <% } %>
+            none
+          </label>
           <label class="radio-inline">
             <% if (user.permission == 'view') { %> 
               <input type="radio" name="permission" value="view" checked="checked">
@@ -50,9 +59,11 @@
             <% } %>
             edit
           </label>
-          &nbsp;
-          <button type="submit" class="btn btn-sm btn-primary">Change</button>
-          <a href="javascript:;" type="btn" class="btn btn-sm btn-danger delete-user" data-client="<%= client.id %>" data-user="<%= user.id %>">Delete</a>
+          <br/>
+          <div class="pull-right">
+            <button type="submit" class="btn btn-sm btn-primary">Change</button>
+            <a href="javascript:;" type="btn" class="btn btn-sm btn-danger delete-user" data-client="<%= client.id %>" data-user="<%= user.id %>">Delete</a>
+          </div>
         </div>
 
       </div>

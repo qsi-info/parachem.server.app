@@ -48,7 +48,7 @@ module.exports = {
     everyone: {
       type: 'string',
       enum: ['none', 'view', 'contribute', 'edit'],
-      defaultsTo: 'none',
+      defaultsTo: 'view',
     },
 
     viewLDAPGroup: {

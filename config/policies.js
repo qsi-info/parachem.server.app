@@ -25,6 +25,10 @@ module.exports.policies = {
   	'*': 'isAdmin',
   },
 
+  ApiController: {
+  	'*' : 'oauthBearer',
+  },
+
 
 
 

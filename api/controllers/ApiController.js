@@ -1,5 +1,5 @@
 /**
- * HomeController
+ * ApiController
  *
  * @module      :: Controller
  * @description	:: A set of functions called `actions`.
@@ -17,16 +17,31 @@
 
 module.exports = {
     
-
-	index: function (req, res) {
-		return res.json({ message: 'you are connected'})
-	},
   
+  me: function (req, res) {
+  	var token = req.token;
+  	if (token.userProvider == 'local') {
+  		User.findOne(token.user)
+  		.then(function (user) {
+  			return res.json(user);
+  		})
+  		.fail(function (err) {
+  			return res.json(err);
+  		});
+  	} else if (token.userProvider == 'ldap') {
+  		LDAP.findUser(token.user, function (err, user) {
+  			if (err) return res.json(err);
+  			return res.json(user);
+  		});
+  	} else {
+  		return res.json({ message: 'invalid_user_provider' });
+  	}
+  },
 
 
   /**
    * Overrides for the settings in `config/controllers.js`
-   * (specific to HomeController)
+   * (specific to ApiController)
    */
   _config: {}
 

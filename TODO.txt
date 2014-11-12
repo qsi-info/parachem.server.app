@@ -1,1 +1,4 @@
 - window integration with the gateway page.
+- better login page
+- Implement basic custom client app, 
+- Learn about httpInterceptor in angular JS,

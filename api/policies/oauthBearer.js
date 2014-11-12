@@ -12,11 +12,14 @@ var passport = require('passport');
 
 module.exports = function(req, res, next) {
 
-	passport.authenticate('bearer', { session: false }, function(err, user, info) {
+	// Using JSONP on the client and simulating the Authorization: Bearer token.
+	// This solution is use because the CORS doesnt seem to work in SailsJS.
+	// req.headers.authorization = 'Bearer ' + req.query.token;
+
+	passport.authenticate('bearer', { session: false }, function(err, token, info) {
 		if (err) return console.log(err);
-		if (!user && info) return res.json(info);
-    delete req.query.access_token;
-    req.user = user;
+		if (!token && info) return res.json(info);
+    req.token = token;
     return next();			
 	})(req, res);
 

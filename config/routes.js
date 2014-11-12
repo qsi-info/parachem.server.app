@@ -9,7 +9,7 @@ module.exports.routes = {
   'post /auth/process' : 'AuthController.process',
 
 
-
+  "OPTIONS /*": function (req, res) {res.send(200);},
 
 
   '/admin/client/new' : 'AdminController.newClient',

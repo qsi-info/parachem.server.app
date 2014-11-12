@@ -39,30 +39,18 @@ server.grant(oauth2orize.grant.token(function (client, user, ares, done) {
 
 	if (user.provider == 'local' && auth != 'full') {
 
-		AccessToken.destroy({ client: client.id, user: user.id })
-		.then(function () {
-	    UserApplicationPermission.findOne({ client: client.id, user: user.id })
-	    .then(function (permission) {
-	    	if (permission) {
-					AccessToken.create({ client: client.id, user: user.id, permission: permission.permission })
-					.then(function (accessToken) {
-						return done(null, accessToken.token);
-					})
-					.fail(done);	    		
-	    	} else {
-	    		UserApplicationPermission.create({ client: client.id, user: user.id })
-	    		.then(function (permission) {
-						AccessToken.create({ client: client.id, user: user.id, permission: permission.permission })
-						.then(function (accessToken) {
-							return done(null, accessToken.token);
-						})
-						.fail(done);	    		
-	    		})
-	    		.fail(done);
-	    	}
-	    })			
-			.fail(done);
-		})
+    UserApplicationPermission.findOne({ client: client.id, user: user.id })
+    .then(function (permission) {
+    	if (permission) {
+    		create_token(client, user, permission.permission, done);
+    	} else {
+    		UserApplicationPermission.create({ client: client.id, permission: client.everyone, user: user.id })
+    		.then(function (permission) {
+	    		create_token(client, user, permission.permission, done);
+    		})
+    		.fail(done);
+    	}
+    })			
 		.fail(done);
 
 		// LDAP User
@@ -158,17 +146,32 @@ function get_ldap_permissions (client, user, done) {
     if (tokenPermission == 'none') {
     	return done(null, false);
     }
-
-    AccessToken.create({ client: client.id, user: user.sAMAccountName, permission: tokenPermission, userProvider: 'ldap' })
-		.then(function (accessToken) {
-			return done(null, accessToken.token);
-		})
-		.fail(done);	    		
+		create_token(client, user, tokenPermission, done);
+  //   AccessToken.create({ client: client.id, user: user.sAMAccountName, permission: tokenPermission, userProvider: 'ldap' })
+		// .then(function (accessToken) {
+		// 	return done(null, accessToken.token);
+		// })
+		// .fail(done);	    		
   })
   .fail(done)	
 }
 
 
+
+
+function create_token (client, user, tokenPermission, done) {
+	var userId = user.id ? user.id : user.sAMAccountName;
+	var userProvider = user.id ? 'local' : 'ldap';
+	AccessToken.destroy({ client: client.id, user: userId })
+	.then(function () {
+	  AccessToken.create({ client: client.id, user: userId, permission: tokenPermission, userProvider: userProvider, endpoints: client.endpoints })
+		.then(function (accessToken) {
+			return done(null, accessToken.token);
+		})
+		.fail(done);	    					
+	})
+	.fail(done);
+}
 
 
 

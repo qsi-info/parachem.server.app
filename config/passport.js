@@ -51,7 +51,6 @@ passport.use(new LocalStrategy(function (username, password, done) {
 		.fail(function (err) { return done(err, false); })		
 	} else {
 		// LDAP Search
-		console.log('ldap auth');
 		LDAP.authenticate(sails.settings.LDAP_DOMAIN, username, password, function (err, user) {
 			if (err || !user) return done(null, false, { message: 'ldap error' });
 			done(null, user);

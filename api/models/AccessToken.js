@@ -31,14 +31,23 @@ module.exports = {
   		type: 'string',
   	},
 
+    expires: {
+      type: 'datetime',
+    },
+
   	scope: {
   		type: 'string',
   	},
 
     permission: {
      type: 'string',
-     enum: ['view', 'contribute', 'edit', 'admin'],
+     enum: ['view', 'contribute', 'edit', 'none'],
      defaultsTo: 'view',
+    },
+
+    enpoints: {
+      type: 'string',
+      defaultsTo: '',
     },
 
   },
@@ -46,6 +55,9 @@ module.exports = {
 
   beforeCreate: function (attrs, cb) {
   	attrs.token = Utils.accessToken();
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+    attrs.expires = date;
   	cb();
   }
 

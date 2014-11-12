@@ -24,7 +24,7 @@ module.exports = {
 
     permission: {
      type: 'string',
-     enum: ['view', 'contribute', 'edit'],
+     enum: ['view', 'contribute', 'edit', 'none'],
      defaultsTo: 'view',
     },  	
     
