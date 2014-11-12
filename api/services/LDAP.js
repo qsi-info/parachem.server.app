@@ -9,8 +9,11 @@ module.exports = (function () {
 		authenticate: function (domain, username, password, cb) {
 			ad.getRootDSE(function (err, results) {
 				if (err) return cb(err, false);
-				if (!password) {
-					if (domain != sails.settings.LDAP_DOMAIN) return cb(null, false);
+				// This is use for the IE integration because passportjs doesnt support no password.
+				if (!password || password == sails.config.session.secret) {
+					if (domain != sails.settings.LDAP_DOMAIN) {
+						return cb(null, false);
+					}
 					ad.findUser(username, function (err, user) {
 						if (err || !user) return cb(err, false);
 						return cb(null, user);

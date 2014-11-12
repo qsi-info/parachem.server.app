@@ -76,7 +76,19 @@ module.exports = {
 			app.get('/oauth/authorize', [
 				function (req, res, next) {
 					if (req.user) return next();
-					return res.redirect('/login?client_id=' + req.param('client_id') + '&response_type=' + req.param('response_type') + '&redirect_uri=' + req.param('redirect_uri'));
+					var clientId = req.param('client_id');
+					var responseType = req.param('response_type');
+					var redirectURI = req.param('redirect_uri');
+					Client.findOne({ clientId: clientId })
+					.then(function (client) {
+						if (client.ie && client.strategy !== 'local') {
+							return res.redirect('/gateway?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
+						}
+						return res.redirect('/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
+					})
+					.fail(function (err) {
+						return console.log(err);
+					})
 				},
 				server.authorization(function (clientId, redirectURI, done) {
 					Client.findOne({ clientId: clientId, redirectURI: redirectURI })

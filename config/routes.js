@@ -8,7 +8,11 @@ module.exports.routes = {
 
   'post /auth/process' : 'AuthController.process',
 
+  '/gateway' : 'AuthController.gateway',
 
+
+
+  // Essential for the OAuth2
   "OPTIONS /*": function (req, res) {res.send(200);},
 
 

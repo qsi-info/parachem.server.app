@@ -1,0 +1,53 @@
+
+
+<form action="/auth/process" method="post" name="auth">
+	<input type="hidden" name="username" value=''/>
+	<input type="hidden" name="domain" value=''/>
+	<input type="hidden" name="password" value="<%= sails.config.session.secret %>"/>
+	<!-- Add clientId redirectURI -->
+	<input type="hidden" name="client_id" value="<%= req.query.client_id || '' %>"/>
+	<input type="hidden" name="response_type" value="<%= req.query.response_type || '' %>"/>
+	<input type="hidden" name="redirect_uri" value="<%= req.query.redirect_uri || '' %>"/>
+
+	<!-- <input type="submit"/> -->
+
+</form>
+
+<script type="text/javascript">
+
+(function () {
+
+	var form = document.forms['auth'];
+	
+	// Essential gateway elements
+	var clientId     = form.elements['client_id'].value;
+	var responseType = form.elements['response_type'].value;
+	var redirectURI  = form.elements['redirect_uri'].value;
+
+
+	// If one essential element is mssing, redirect to login.
+	// This also prevent when the IE options is active but no LDAP
+	if (clientId == '' || responseType == '' || redirectURI == '') {
+		return window.location.href = '/login';
+	}
+
+	// If the ActiveXObject is available
+	if ('ActiveXObject' in window) {
+		try {
+		  var wshell = new ActiveXObject("WScript.Shell");
+		  window.alert(form.elements['domain'].value);
+		  form.elements['domain'].value   = wshell.ExpandEnvironmentStrings("%USERDOMAIN%");
+		  form.elements['username'].value = wshell.ExpandEnvironmentStrings("%USERNAME%");
+		  form.submit();
+		} catch(e) {
+			window.location.href = '/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI;
+		}
+	} else {
+		window.location.href = '/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI;
+	}
+
+})();
+
+
+</script>
+

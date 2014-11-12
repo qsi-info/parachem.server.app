@@ -21,6 +21,11 @@ var passport = require('passport');
 
 module.exports = {
     
+  gateway: function (req, res) {
+    return res.view({ layout: 'auth.layout.ejs' });
+  },
+
+
 	login: function (req, res) {
 		if (req.query.client_id) {
 			Client.findOne({ clientId: req.query.client_id})
@@ -59,6 +64,7 @@ module.exports = {
 
 
 	process: function (req, res) {
+
 		passport.authenticate('local', function(err, user, info) {
 			if (err) return console.log(err);
 			if (info && !user) {

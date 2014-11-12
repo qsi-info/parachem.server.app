@@ -15,6 +15,8 @@ module.exports.session = {
   // Session secret is automatically generated when your new app is created
   // Replace at your own risk in production-- you will invalidate the cookies of your users,
   // forcing them to log in again. 
+
+  // This is also use the IE integration password
   secret: 'd2c088605bf61a60a6f5c1e29e4d35de'
 
 

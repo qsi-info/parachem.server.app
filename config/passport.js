@@ -33,9 +33,9 @@ passport.deserializeUser(function(idORSAMAccount, done) {
  * Anytime a request is made to authorize an application, we must ensure that
  * a user is logged in before asking them to approve the request.
  */
-passport.use(new LocalStrategy(function (username, password, done) {
+passport.use(new LocalStrategy({ passReqToCallback: true }, function (req, username, password, done) {
 
-
+	// If the user is the admin or a local user
 	if (username == 'admin' || username.split('@')[1] == sails.settings.LOCAL_DOMAIN) {
 		username = username.split('@')[0];
 		User.findOne()
@@ -49,10 +49,15 @@ passport.use(new LocalStrategy(function (username, password, done) {
 			});
 		})
 		.fail(function (err) { return done(err, false); })		
+
 	} else {
+
+		// IF using IE the domain is sent with the request.
+		var domain = (req.body.domain && req.body.domain != '') ? req.body.domain : sails.settings.LDAP_DOMAIN;
+
 		// LDAP Search
-		LDAP.authenticate(sails.settings.LDAP_DOMAIN, username, password, function (err, user) {
-			if (err || !user) return done(null, false, { message: 'ldap error' });
+		LDAP.authenticate(domain, username, password, function (err, user) {
+			if (err || !user) return done(null, false, { message: 'Active Directory authentification failed' });
 			done(null, user);
 		});
 
