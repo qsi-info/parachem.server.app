@@ -1,0 +1,28 @@
+  <div class="col-md-6">
+
+    <form action="/admin/settings/update" method="post" data-parsley-validate="">
+      <fieldset>
+        <legend>Create a new local user</legend>
+
+          <input type="hidden" name="id" value="<%= sails.settings.id %>"/>
+
+          <div class="form-group">
+            <label for="SERVER_NAME">Server name</label>
+            <input type="text" 
+                   class="form-control" 
+                   id="SERVER_NAME" 
+                   required=""
+                   value="<%= sails.settings.SERVER_NAME %>"
+                   name="SERVER_NAME"/>
+          </div>
+
+
+      </fieldset>
+
+      <div class="pull-right">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="/admin" class="btn btn-default">Cancel</a>
+      </div>
+
+    </form>
+  </div>

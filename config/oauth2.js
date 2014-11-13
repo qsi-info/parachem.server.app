@@ -81,7 +81,10 @@ module.exports = {
 					var redirectURI = req.param('redirect_uri');
 					Client.findOne({ clientId: clientId })
 					.then(function (client) {
-						if (client.ie && client.strategy !== 'local') {
+						if (!client) {
+							return res.redirect('/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
+						}
+						if (client.ie && client.strategy != 'local') {
 							return res.redirect('/gateway?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
 						}
 						return res.redirect('/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
@@ -172,7 +175,7 @@ function get_ldap_permissions (client, user, done) {
 
 
 function create_token (client, user, tokenPermission, done) {
-	var userId = user.id ? user.id : user.sAMAccountName;
+	var userId = user.account ? (user.account + '@' + sails.settings.LOCAL_DOMAIN) : user.sAMAccountName;
 	var userProvider = user.id ? 'local' : 'ldap';
 	AccessToken.destroy({ client: client.id, user: userId })
 	.then(function () {

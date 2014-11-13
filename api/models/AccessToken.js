@@ -45,7 +45,7 @@ module.exports = {
      defaultsTo: 'view',
     },
 
-    enpoints: {
+    endpoints: {
       type: 'string',
       defaultsTo: '',
     },

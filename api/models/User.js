@@ -67,4 +67,19 @@ module.exports = {
 	  })
 	},  
 
+	beforeUpdate: function (user, cb) {
+		if (user.password && user.password !== '') {
+			var bcrypt = require('bcrypt');
+		  bcrypt.genSalt(10, function(err, salt) {
+		    bcrypt.hash(user.password, salt, function(err, hash) {
+		    	if (err) return cb(err);
+		    	user.password = hash;
+		    	cb();
+		    })
+		  })
+		} else {
+			cb();
+		}
+	},	
+
 };

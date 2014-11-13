@@ -20,6 +20,12 @@ module.exports = function(req, res, next) {
 		if (err) return console.log(err);
 		if (!token && info) return res.json(info);
     req.token = token;
+    // Client.findOne(token.client)
+    // .then(function (client) {
+    // 	if (!client) return res.forbidden('Unknown client application with id \'' + token.client + '\'');
+    // 	req.client = client;
+    // 	User.find
+    // })
     return next();			
 	})(req, res);
 

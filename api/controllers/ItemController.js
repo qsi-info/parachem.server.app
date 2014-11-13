@@ -1,5 +1,5 @@
 /**
- * ApiController
+ * ItemController
  *
  * @module      :: Controller
  * @description	:: A set of functions called `actions`.
@@ -18,42 +18,11 @@
 module.exports = {
     
   
-  me: function (req, res) {
-  	var token = req.token;
-  	if (token.userProvider == 'local') {
-  		User.findOne(token.user)
-  		.then(function (user) {
-  			return res.json(user);
-  		})
-  		.fail(function (err) {
-  			return res.json(err);
-  		});
-  	} else if (token.userProvider == 'ldap') {
-  		LDAP.findUser(token.user, function (err, user) {
-  			if (err) return res.json(err);
-  			return res.json(user);
-  		});
-  	} else {
-  		return res.json({ message: 'invalid_user_provider' });
-  	}
-  },
-
-
-  info: function (req, res) {
-    var token = req.token;
-    Client.findOne(token.client)
-    .then(function (client) {
-      return res.json(client);
-    })
-    .fail(function (err) {
-      return res.json(err);
-    })
-  },
 
 
   /**
    * Overrides for the settings in `config/controllers.js`
-   * (specific to ApiController)
+   * (specific to ItemController)
    */
   _config: {}
 

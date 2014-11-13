@@ -37,14 +37,17 @@ module.exports = {
   		defaultsTo: '',
   	},
 
-
-
   	LOCAL_DOMAIN: {
   		type: 'string',
   		defaultsTo: 'local',
   	},
 
+    SERVER_NAME: {
+      type: 'string',
+      defaultsTo: 'API Server',
+    },
 
+    
 
   }
 

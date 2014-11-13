@@ -30,6 +30,10 @@ module.exports.policies = {
   },
 
 
+  // Apply these four policies to every model you want to manage throught the API Server.
+  'item' : ['oauthBearer', 'clientEndpoints', 'userPermissions', 'createdBy', 'updatedBy'],
+
+
 
 
 

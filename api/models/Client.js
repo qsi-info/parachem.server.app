@@ -85,6 +85,14 @@ module.exports = {
   	},
 
 
+    // Override toJSON method to remove password from API
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.clientSecret;
+      return obj;
+    }   
+
+
   },
 
 
@@ -98,7 +106,9 @@ module.exports = {
   beforeDestroy: function (criteria, cb) {
     Client.findOne(criteria.where.id)
     .then(function (client) {
-      AccessToken.destroy({ client: client.clientId }).exec(cb);
+      AccessToken.destroy({ client: client.clientId }).exec(function () {});
+      UserApplicationPermission.destroy({ client: client.id }).exec(function () {});
+      cb();
     })
     .fail(cb)
   }
