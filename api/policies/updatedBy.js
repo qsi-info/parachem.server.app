@@ -11,8 +11,8 @@
 module.exports = function(req, res, next) {
   if (req.query || req.body) {
   	if (req.target && req.target.action == 'update') {
-	  	req.query.updatedBy = req.token.user;
-	  	req.body.updatedBy = req.token.user
+	  	req.query.updatedBy = req.token.userAccount;
+	  	req.body.updatedBy = req.token.userAccount
   	}
 	}
   return next();

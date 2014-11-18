@@ -12,10 +12,10 @@
 module.exports = function(req, res, next) {
 	if (req.body || req.query) {
 	  if(req.target && req.target.action == 'create') {
-	  	req.query.createdBy = req.token.user;
-	  	req.query.updatedBy = req.token.user;
-	  	req.body.createdBy = req.token.user;
-	  	req.body.updatedBy = req.token.user;
+	  	req.query.createdBy = req.token.userAccount;
+	  	req.query.updatedBy = req.token.userAccount;
+	  	req.body.createdBy = req.token.userAccount;
+	  	req.body.updatedBy = req.token.userAccount;
 	  }
 	}
   return next();

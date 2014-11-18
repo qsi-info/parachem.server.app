@@ -8,11 +8,12 @@
 
 module.exports = {
 
+  tableName: 'AdminUserApplicationPermission',
   usage: 'admin',
 
   attributes: {
   	
-  	user: {
+  	userId: {
   		type: 'string',
   		required: true,
   	},

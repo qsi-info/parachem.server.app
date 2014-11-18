@@ -108,8 +108,6 @@ module.exports = {
       return res.redirect('/admin/client/dashboard/' + id);
     })
     .fail(function (err) {
-      console.log(err);
-      console.log(err);
       return res.view('500', { errors: err });
     })    
   },
@@ -157,7 +155,7 @@ module.exports = {
       var promises = [];
       permissions.forEach(function (permission) {
         var deferred = Q.defer();
-        User.findOne(permission.user)
+        User.findOne(permission.userId)
         .then(function (user) {
           user.permission = permission.permission
           deferred.resolve(user);

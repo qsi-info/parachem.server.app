@@ -39,12 +39,12 @@ server.grant(oauth2orize.grant.token(function (client, user, ares, done) {
 
 	if (user.provider == 'local' && auth != 'full') {
 
-    UserApplicationPermission.findOne({ client: client.id, user: user.id })
+    UserApplicationPermission.findOne({ client: client.id, userId: user.id })
     .then(function (permission) {
     	if (permission) {
     		create_token(client, user, permission.permission, done);
     	} else {
-    		UserApplicationPermission.create({ client: client.id, permission: client.everyone, user: user.id })
+    		UserApplicationPermission.create({ client: client.id, permission: client.everyone, userId: user.id })
     		.then(function (permission) {
 	    		create_token(client, user, permission.permission, done);
     		})
@@ -175,11 +175,11 @@ function get_ldap_permissions (client, user, done) {
 
 
 function create_token (client, user, tokenPermission, done) {
-	var userId = user.account ? (user.account + '@' + sails.settings.LOCAL_DOMAIN) : user.sAMAccountName;
+	var userAccount = user.account ? (user.account + '@' + sails.settings.LOCAL_DOMAIN) : user.sAMAccountName;
 	var userProvider = user.id ? 'local' : 'ldap';
-	AccessToken.destroy({ client: client.id, user: userId })
+	AccessToken.destroy({ client: client.id, userAccount: userAccount })
 	.then(function () {
-	  AccessToken.create({ client: client.id, user: userId, permission: tokenPermission, userProvider: userProvider, endpoints: client.endpoints })
+	  AccessToken.create({ client: client.id, userAccount: userAccount, permission: tokenPermission, userProvider: userProvider, endpoints: client.endpoints })
 		.then(function (accessToken) {
 			return done(null, accessToken.token);
 		})

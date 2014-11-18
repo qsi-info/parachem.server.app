@@ -32,7 +32,10 @@ module.exports.policies = {
 
   // Apply these four policies to every model you want to manage throught the API Server.
   'item' : ['oauthBearer', 'clientEndpoints', 'userPermissions', 'createdBy', 'updatedBy'],
-
+  
+  // Rapport de quart app.
+  'quarterreport'        : ['oauthBearer', 'clientEndpoints', 'userPermissions', 'createdBy', 'updatedBy'],
+  'quarterreportcomment' : ['oauthBearer', 'clientEndpoints', 'userPermissions', 'createdBy', 'updatedBy'],
 
 
 

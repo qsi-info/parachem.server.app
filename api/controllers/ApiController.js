@@ -21,7 +21,7 @@ module.exports = {
   me: function (req, res) {
   	var token = req.token;
   	if (token.userProvider == 'local') {
-  		User.findOne(token.user)
+  		User.findOneByAccount(token.userAccount.split('@')[0])
   		.then(function (user) {
   			return res.json(user);
   		})
@@ -29,7 +29,7 @@ module.exports = {
   			return res.json(err);
   		});
   	} else if (token.userProvider == 'ldap') {
-  		LDAP.findUser(token.user, function (err, user) {
+  		LDAP.findUser(token.userAccount, function (err, user) {
   			if (err) return res.json(err);
   			return res.json(user);
   		});

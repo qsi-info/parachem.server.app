@@ -79,9 +79,12 @@
 
 
 <div class="col-md-6">
-  <form action="/admin/client/permissions/update" method="post">
+  <form action="/admin/client/update" method="post">
     <fieldset>
       <legend>LDAP Permission Groups</legend>
+
+
+      <input type="hidden" name="id" value="<%= client.id %>"/>
 
       <div class="form-group">
         <label>View</label>

@@ -8,11 +8,15 @@
  *
  */
 
-
 module.exports = function(req, res, next) {
 
-	if (req.target && req.target.controller && req.token.endpoints.split(',').indexOf(req.target.controller) != -1) {
-		return next();
+	if (req.target && req.target.controller && req.token.endpoints) {
+		var tokens = req.token.endpoints.split(',');
+		for (var i=0, len=tokens.length; i < len; i++) {
+			if (tokens[i].toLowerCase() == req.target.controller.toLowerCase()) {
+				return next();
+			}
+		}
 	}
 
 	return res.forbidden('Client endpoints for \'' + req.target.controller + '\' is not authorized.');

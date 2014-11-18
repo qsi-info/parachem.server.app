@@ -1,5 +1,5 @@
 /**
- * Item
+ * QuarterReportComment
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
@@ -8,13 +8,24 @@
 
 module.exports = {
 
-
-  tableName: 'Item',
+  tableName: 'QuarterReportComment',
 
   attributes: {
   	
-  	title: {
+    report: {
+      type: 'string',
+      required: true,
+    },
+
+  	text: {
+  		type: 'text',
+  		defaultsTo: '',
+  	},
+
+  	section: {
   		type: 'string',
+  		// Add all the other sections.
+  		enum: ['hydrogene', 'paraxylene', 'stdp', 'chaudieres', 'tours', 'divers', 'personnel', 'securite'],
   		required: true,
   	},
 

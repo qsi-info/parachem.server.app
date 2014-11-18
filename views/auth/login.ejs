@@ -1,18 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<style type="text/css">
 
 
-<form action="/auth/process" method="post">
-	<% var flash = req.flash('message'); %>
-	<% if (flash.length > 0) { %>
-	  <p style="color: red"><%= flash[0].message %></p>
-	<% } %>
+		#loginContainer {
+		  margin: auto;
+		  text-align: center;
+		  margin-top: 100px;
+		  padding: 50px;
+		  padding-top: 10px;
+		  border: 1px dotted black;
+		  width:  200px;
+		}
 
-	<!-- Add clientId redirectURI -->
-	<input type="hidden" name="client_id" value="<%= req.query.client_id || '' %>"/>
-	<input type="hidden" name="response_type" value="<%= req.query.response_type || '' %>"/>
-	<input type="hidden" name="redirect_uri" value="<%= req.query.redirect_uri || '' %>"/>
+		input[type="text"], input[type="password"] {
+			margin: 5px;
+		}
+
+		#loginContainer input[type="submit"] {
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="loginContainer">
+
+		<form action="/auth/process" method="post">
+			<% var flash = req.flash('message'); %>
+			<% if (flash.length > 0) { %>
+			  <p style="color: red"><%= flash[0].message %></p>
+			<% } else { %> 
+				<p>&nbsp;</p>
+			<% } %>
+
+			<!-- Add clientId redirectURI -->
+			<input type="hidden" name="client_id" value="<%= req.query.client_id || '' %>"/>
+			<input type="hidden" name="response_type" value="<%= req.query.response_type || '' %>"/>
+			<input type="hidden" name="redirect_uri" value="<%= req.query.redirect_uri || '' %>"/>
 
 
-	<input type="text" name="username" placeholder="account"/>
-	<input type="password" name="password" placeholder="password"/>
-	<input type="submit" value="Login" />
-</form>
+			<input type="text" id="username" name="username" placeholder="account"/>
+			<br/>
+			<input type="password" name="password" placeholder="password"/>
+			<br/>
+			<input type="submit" value="Login" />
+		</form>
+
+	</div>
+
+
+	<script type="text/javascript">
+		document.getElementById('username').focus();
+	</script>
+
+</body>
+</html>
+

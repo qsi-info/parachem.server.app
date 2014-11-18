@@ -36,10 +36,7 @@ module.exports.bootstrap = function (cb) {
 				console.log('create admin');			
 				Setting.find()
 				.then(function (settings) {
-					console.log('findsettings');			
 					if (settings.length < 1) {
-					console.log('create settings');			
-
 						Setting.create({})
 						.then(function (setting) {
 							sails.settings = setting;
@@ -47,7 +44,6 @@ module.exports.bootstrap = function (cb) {
 							cb();
 						})
 					} else {
-						console.log('use');			
 						sails.settings = settings[0];
 						LDAP.configure(sails.settings);
 						cb();

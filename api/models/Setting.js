@@ -8,6 +8,7 @@
 
 module.exports = {
 
+  tableName: 'AdminSetting',
   usage: 'admin',
 
   attributes: {

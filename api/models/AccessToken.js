@@ -8,11 +8,12 @@
 
 module.exports = {
 
+  tableName: 'AdminAccessToken',
   usage: 'admin',
 
   attributes: {
   	
-  	user: {
+  	userAccount: {
   		type: 'string',
   		required: true,
   	},
@@ -37,6 +38,7 @@ module.exports = {
 
   	scope: {
   		type: 'string',
+      defaultsTo: 'public',
   	},
 
     permission: {

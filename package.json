@@ -18,6 +18,7 @@
     "q": "^1.1.0",
     "sails": "0.9.17",
     "sails-disk": "~0.9.0",
+    "sails-mssql": "git://github.com/alexandrepage/sails-mssql-update-fix",
     "uid": "0.0.2"
   },
   "scripts": {

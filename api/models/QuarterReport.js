@@ -1,5 +1,5 @@
 /**
- * Item
+ * QuarterReport
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
@@ -8,15 +8,25 @@
 
 module.exports = {
 
-
-  tableName: 'Item',
+  tableName: 'QuarterReport',
 
   attributes: {
   	
-  	title: {
+  	type: {
   		type: 'string',
-  		required: true,
+  		// required: true,
+  		enum: ['444'],
   	},
+
+  	period: {
+  		type: 'string',
+  		enum: ['day', 'night'],
+  	},
+
+    team: {
+      type: 'string',
+      enum: ['A', 'B', 'C', 'D', 'E'],
+    },
 
   	createdBy: {
   		type: 'string',
