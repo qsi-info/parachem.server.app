@@ -263,7 +263,7 @@ module.exports = {
 
 
   updateClientUser: function (req, res) {
-    UserApplicationPermission.update({ client: req.body.client, user: req.body.user }, req.body)
+    UserApplicationPermission.update({ client: req.body.client, userId: req.body.user }, req.body)
     .then(function (results) {
       return res.redirect('/admin/client/users/' + req.body.client);
     })
