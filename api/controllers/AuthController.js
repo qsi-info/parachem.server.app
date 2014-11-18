@@ -49,7 +49,8 @@ module.exports = {
       req.body.username = username;
       req.body.password = password;
 
-      passport.authenticate('local', function (err, user, info) {
+      passport.authenticate('local', {session: false }, function (err, user, info) {
+        console.log('Auth back from passport')
       	if (err || !user) handleCallback(err, false);
       	else req.logIn(user, function (err) {
       		handleCallback(err, user);

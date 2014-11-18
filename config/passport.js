@@ -7,6 +7,7 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 
 
 passport.serializeUser(function(user, done) {
+	console.log('Passport serializeUser');
 	// LDAP User
 	if (user.sAMAccountName) {
 		done(null, user.sAMAccountName);
@@ -16,9 +17,12 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(idORSAMAccount, done) {
+
   User.findOne(idORSAMAccount, function (err, user) {
-  	if (err) return console.log(err);
-  	if (!user) return LDAP.findUser(idORSAMAccount, done);
+  	if (err || !user) {
+  		console.log(err);
+  		return LDAP.findUser(idORSAMAccount, done);
+  	}
   	return done(err, user);
   })
 });
