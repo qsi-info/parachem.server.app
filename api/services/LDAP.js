@@ -22,9 +22,12 @@ module.exports = (function () {
 				}
 				else {
 					var account = domain + '\\' + username;
+					console.log('account: ', account);
 					ad.authenticate(account, password, function (err, isAuthenticated) {
+						console.log('AD:_authenticate', err, isAuthenticated);
 						if (err || !isAuthenticated) return cb(err, false);
 						ad.findUser(username, function (err, user) {
+							console.log('AD:_findUser', err, user);
 							if (err || !user) return cb(err, false);
 							return cb(null, user);
 						})
