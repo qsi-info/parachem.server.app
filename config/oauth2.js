@@ -76,9 +76,9 @@ module.exports = {
 			app.get('/oauth/authorize', [
 				function (req, res, next) {
 					if (req.user) return next();
-					var clientId = req.param('client_id');
+					var clientId     = req.param('client_id');
 					var responseType = req.param('response_type');
-					var redirectURI = req.param('redirect_uri');
+					var redirectURI  = req.param('redirect_uri');
 					Client.findOne({ clientId: clientId })
 					.then(function (client) {
 						if (!client) {
@@ -90,7 +90,7 @@ module.exports = {
 						return res.redirect('/login?client_id=' + clientId + '&response_type=' + responseType + '&redirect_uri=' + redirectURI);
 					})
 					.fail(function (err) {
-						return console.log(err);
+						return next(err);
 					})
 				},
 				server.authorization(function (clientId, redirectURI, done) {

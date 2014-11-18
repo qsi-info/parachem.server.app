@@ -37,6 +37,7 @@ passport.use(new LocalStrategy({ passReqToCallback: true }, function (req, usern
 
 	// If the user is the admin or a local user
 	if (username == 'admin' || username.split('@')[1] == sails.settings.LOCAL_DOMAIN) {
+		console.log('Passport::local_user');
 		username = username.split('@')[0];
 		User.findOne()
 		.where({ account: username })
@@ -51,6 +52,7 @@ passport.use(new LocalStrategy({ passReqToCallback: true }, function (req, usern
 		.fail(function (err) { return done(err, false); })		
 
 	} else {
+		console.log('Passport::ldap_user');
 
 		// IF using IE the domain is sent with the request.
 		var domain = (req.body.domain && req.body.domain != '') ? req.body.domain : sails.settings.LDAP_DOMAIN;

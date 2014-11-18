@@ -22,11 +22,13 @@ var passport = require('passport');
 module.exports = {
     
   gateway: function (req, res) {
+    console.log('Auth::gateway');
     return res.view({ layout: 'auth.layout.ejs' });
   },
 
 
 	login: function (req, res) {
+    console.log('Auth::login');
 		if (req.query.client_id) {
 			Client.findOne({ clientId: req.query.client_id})
 			.then(function (client) {
@@ -39,6 +41,7 @@ module.exports = {
 	},
 
 	http: function (req, res) {
+    console.log('Auth::http');
     var connect = require('../../node_modules/sails/node_modules/express/node_modules/connect');
     var auth = connect.middleware.basicAuth(function (username, password, handleCallback) {
 
