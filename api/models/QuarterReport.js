@@ -16,16 +16,19 @@ module.exports = {
   		type: 'string',
   		// required: true,
   		enum: ['444'],
+      defaultsTo: '444',
   	},
 
   	period: {
   		type: 'string',
   		enum: ['day', 'night'],
+      defaultsTo: 'day',
   	},
 
     team: {
       type: 'string',
       enum: ['A', 'B', 'C', 'D', 'E'],
+      defaultsTo: 'A',
     },
 
   	createdBy: {
