@@ -21,7 +21,7 @@
     <% users.forEach(function (user) { %>
     <form class="form-inline" action="/admin/client/user/update" method="post">
       <input type="hidden" name="client" value="<%= client.id %>"/>
-      <input type="hidden" name="user" value="<%= user.id %>"/>
+      <input type="hidden" name="userId" value="<%= user.id %>"/>
       <div href="javascript:;" class="list">
         <div class="list-content">
           <span class="list-title"><%= user.displayName %></span>
