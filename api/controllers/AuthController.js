@@ -22,13 +22,11 @@ var passport = require('passport');
 module.exports = {
     
   gateway: function (req, res) {
-    console.log('Auth::gateway');
     return res.view({ layout: 'auth.layout.ejs' });
   },
 
 
 	login: function (req, res) {
-    console.log('Auth::login');
 		if (req.query.client_id) {
 			Client.findOne({ clientId: req.query.client_id})
 			.then(function (client) {
@@ -50,7 +48,6 @@ module.exports = {
       req.body.password = password;
 
       passport.authenticate('local', {session: false }, function (err, user, info) {
-        console.log('Auth back from passport')
       	if (err || !user) handleCallback(err, false);
       	else req.logIn(user, function (err) {
       		handleCallback(err, user);
