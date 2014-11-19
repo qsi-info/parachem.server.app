@@ -98,11 +98,21 @@ module.exports = {
     })        
   },
 
+
+  clientDesign: function (req, res) {
+    Client.findOne(req.param('id'))
+    .then(function (client) {
+      if (!client) return res.redirect('/admin');
+      return res.view({ client: client });
+    })
+    .fail(function (err) {
+      console.log(err);
+      return res.view('500', { errors: err });
+    })        
+  },
+
   updateClient: function (req, res) {
     var id = req.body.id;
-    if (req.body.strategy && !req.body.ie) {
-      req.body.ie = false;
-    }
     Client.update({ id: id }, req.body)
     .then(function (client) {
       return res.redirect('/admin/client/dashboard/' + id);

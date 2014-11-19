@@ -20,9 +20,11 @@ module.exports = {
   
   me: function (req, res) {
   	var token = req.token;
+    // sails.log(token);
   	if (token.userProvider == 'local') {
   		User.findOneByAccount(token.userAccount.split('@')[0])
   		.then(function (user) {
+        user.permission_level = token.permission
   			return res.json(user);
   		})
   		.fail(function (err) {
@@ -31,6 +33,7 @@ module.exports = {
   	} else if (token.userProvider == 'ldap') {
   		LDAP.findUser(token.userAccount, function (err, user) {
   			if (err) return res.json(err);
+        user.permission_level = token.permission        
   			return res.json(user);
   		});
   	} else {

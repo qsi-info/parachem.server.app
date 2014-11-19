@@ -9,7 +9,7 @@
 
 <div class="metro">
 	<a href="/admin/client/users/<%= client.id %>">
-		<div class="tile bg-cyan double">
+		<div class="tile bg-darkCyan double">
 		  <div class="tile-content icon">
 		  	<i class="fa fa-users"></i>
 		  </div>
@@ -19,7 +19,7 @@
 		</div>
 	</a>
 	<a href="/admin/client/authentification/<%= client.id %>">
-		<div class="tile bg-green">
+		<div class="tile bg-darkGreen">
 		  <div class="tile-content icon">
 		  	<i class="fa fa-sign-in"></i>
 		  </div>
@@ -29,7 +29,7 @@
 		</div>
 	</a>
 	<a href="/admin/client/endpoints/<%= client.id %>">
-		<div class="tile bg-orange">
+		<div class="tile bg-darkOrange">
 		  <div class="tile-content icon">
 		  	<i class="fa fa-puzzle-piece"></i>
 		  </div>
@@ -38,8 +38,18 @@
 		  </div>
 		</div>
 	</a>
+	<a href="/admin/client/design/<%= client.id %>">
+		<div class="tile bg-darkCobalt">
+		  <div class="tile-content icon">
+		  	<i class="fa fa-paint-brush"></i>
+		  </div>
+		  <div class="tile-status">
+		    <span class="name">Design</span>
+		  </div>
+		</div>
+	</a>
 	<a href="/admin/client/settings/<%= client.id %>">
-		<div class="tile bg-teal">
+		<div class="tile bg-darkTeal">
 		  <div class="tile-content icon">
 		  	<i class="fa fa-cog"></i>
 		  </div>
@@ -49,7 +59,7 @@
 		</div>
 	</a>
 	<a data-id="<%= client.id %>" id="deleteAppLink" href="javascript:;">
-		<div class="tile bg-red">
+		<div class="tile bg-darkCrimson">
 		  <div class="tile-content icon">
 		  	<i class="fa fa-unlink"></i>
 		  </div>

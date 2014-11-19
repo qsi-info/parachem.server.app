@@ -86,6 +86,22 @@ module.exports = {
   	},
 
 
+    aspect: {
+      type: 'string',
+      enum: ['webpart', 'full_page'],
+      defaultsTo: 'full_page',
+    },
+
+    color: {
+      type: 'string',
+      defaultsTo: 'darkCyan',
+    },
+
+    theme: {
+      type: 'string',
+      defaultsTo: 'none',
+    },
+
     // Override toJSON method to remove password from API
     toJSON: function() {
       var obj = this.toObject();
@@ -103,6 +119,15 @@ module.exports = {
   	cb();
   },
 
+
+  beforeUpdate: function (attrs, cb) {
+
+    if (attrs.strategy && !attrs.ie) {
+      attrs.ie = false;
+    }
+
+    cb();
+  },
 
   beforeDestroy: function (criteria, cb) {
     Client.findOne(criteria.where.id)

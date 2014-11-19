@@ -16,8 +16,8 @@ module.exports.adapters = {
 
   // If you leave the adapter config unspecified 
   // in a model definition, 'default' will be used.
-  // 'default': 'disk',
-  'default': 'server',
+  'default': 'disk',
+  // 'default': 'server',
 
   // Persistent adapter for DEVELOPMENT ONLY
   // (data is preserved when the server shuts down)
@@ -28,10 +28,10 @@ module.exports.adapters = {
 
   server : {
     module: 'sails-mssql',
-    user: 'SP_RO',
-    password: 'password',
-    database: 'ParaChem_ServerApp',
-    host: 'parachemsrv07',
+    user: 'DATABASE_USERNAME',
+    password: 'DATABASE_PASSWORD',
+    database: 'DATABASE_NAME',
+    host: 'DATABASE_HOST',
     port: 1433,
     schema: true,
     migrate: 'safe',    

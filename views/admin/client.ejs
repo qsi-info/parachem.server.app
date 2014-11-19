@@ -28,7 +28,7 @@
 	<div class="metro">
 	<% clients.forEach(function (client) { %>
 		<a href="/admin/client/dashboard/<%= client.id %>">
-			<div class="tile bg-cyan">
+			<div class="tile bg-<%= client.color %>">
 			  <div class="tile-content icon">
 			  	<i class="<%= client.icon %>"></i>
 			  </div>

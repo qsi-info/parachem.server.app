@@ -34,5 +34,6 @@ module.exports.routes = {
   'post /admin/delete-user-permission' : 'AdminController.deleteUserPermission',
   'post /admin/revoke-token' : 'AdminController.revokeToken',
   '/admin/client-count' : 'AdminController.clientCount',
+  '/admin/client/design/:id' : 'AdminController.clientDesign',
 
 }

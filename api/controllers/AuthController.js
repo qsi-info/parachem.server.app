@@ -39,7 +39,6 @@ module.exports = {
 	},
 
 	http: function (req, res) {
-    console.log('Auth::http');
     var connect = require('../../node_modules/sails/node_modules/express/node_modules/connect');
     var auth = connect.middleware.basicAuth(function (username, password, handleCallback) {
 
