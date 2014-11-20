@@ -13,6 +13,8 @@ module.exports.bootstrap = function (cb) {
 
 	sails.config.appName = 'API Server',
 
+	// test
+
 
 	User.findOneByAccount('admin', function (err, admin) {
 		if (err) return console.log(err);
