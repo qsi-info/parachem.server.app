@@ -42,10 +42,16 @@ server.grant(oauth2orize.grant.token(function (client, user, ares, done) {
     UserApplicationPermission.findOne({ client: client.id, userId: user.id })
     .then(function (permission) {
     	if (permission) {
+    		if (permission.permission == 'none') {
+    			return done(null, false, 'permission level too low');
+    		}
     		create_token(client, user, permission.permission, done);
     	} else {
     		UserApplicationPermission.create({ client: client.id, permission: client.everyone, userId: user.id })
     		.then(function (permission) {
+	    		if (permission && permission.permission == 'none') {
+	    			return done(null, false, 'permission level too low');
+	    		}
 	    		create_token(client, user, permission.permission, done);
     		})
     		.fail(done);
