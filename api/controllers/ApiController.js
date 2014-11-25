@@ -25,6 +25,7 @@ module.exports = {
   		User.findOneByAccount(token.userAccount.split('@')[0])
   		.then(function (user) {
         user.permission_level = token.permission
+        user.account = user.account + '@local';
   			return res.json(user);
   		})
   		.fail(function (err) {
@@ -33,7 +34,8 @@ module.exports = {
   	} else if (token.userProvider == 'ldap') {
   		LDAP.findUser(token.userAccount, function (err, user) {
   			if (err) return res.json(err);
-        user.permission_level = token.permission        
+        user.permission_level = token.permission
+        user.account = user.sAMAccountName        
   			return res.json(user);
   		});
   	} else {
