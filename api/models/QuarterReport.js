@@ -22,7 +22,7 @@ module.exports = {
   		required: true,
   	},
 
-  	group: {
+  	groupId: {
   		type: 'string',
   		enum: ['A', 'B', 'C', 'D', 'E'],
   		required: true,
